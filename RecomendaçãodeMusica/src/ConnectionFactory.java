@@ -24,7 +24,8 @@ public class ConnectionFactory {
 		}
 	}
 
-	public static String pegarSenha (){
+	public static String pegarSenha (String nomeUsuario){
+		String senhaUsuario = "";
 		String sql = "SELECT senha FROM tb_usuarios WHERE nome = ?";
 		
 		ConnectionFactory factory = new ConnectionFactory();
@@ -35,12 +36,12 @@ public class ConnectionFactory {
 			//o resultado em um ResultSet
 			ps.setString(1, nomeUsuario);
 			ResultSet rs = ps.executeQuery();
-			String senhaUsuario = rs.getString(senhaUsuario);
-			return senhaUsuario;
+			senhaUsuario = rs.getString("senhaUsuario");
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		return senhaUsuario;
 	}
 
 }

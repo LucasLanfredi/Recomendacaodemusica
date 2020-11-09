@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class usuarioclass {
 	String nomeUsuario;
 	String senha;
-	String[] generosPreferidos;
+	ArrayList<generoMusical> generosPreferidos;
 	
 	//primerio Login
-	public usuarioclass(String nomeUsuario, String senha, String[] generosPreferidos){
+	public usuarioclass(String nomeUsuario, String senha, ArrayList<generoMusical> generosPreferidos){
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
 		this.generosPreferidos = generosPreferidos;
@@ -16,16 +18,16 @@ public class usuarioclass {
 		this.senha = senha;
 	}
 	
-	//login de usuario cadastrado
-	public boolean logar(){
-		String dbSenha = ConnectionFactory.pegarSenha(); //recebe do banco
-		
-		if(senha.equals(dbSenha) == true) {
-			return true;
-		}else {
-			return false;
+	public String getNome() {
+		return nomeUsuario;
+	}
+	
+	public ArrayList<musiclass> recomendar() {
+		ArrayList<musiclass> recomendacoes = new ArrayList<>();
+		for(int i = 0; i<= generosPreferidos.size(); i++) {
+			recomendacoes.addAll(generosPreferidos.get(1).getMusicas());
 		}
-		
+		return recomendacoes;
 	}
 
 }
