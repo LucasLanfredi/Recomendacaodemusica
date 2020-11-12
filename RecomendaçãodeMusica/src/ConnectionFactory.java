@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 public class ConnectionFactory {
 	private String usuario = "root";
 	private String senha = "";
@@ -43,5 +44,36 @@ public class ConnectionFactory {
 		}
 		return senhaUsuario;
 	}
+	
+	public static ArrayList<musiclass> pegarNaoAvaliadas(int id_usuario, int id_genero){
+		ArrayList<musiclass> musicasNaoAvaliadas = new ArrayList<>();
+		//pegar nao avaliadas, nao sei se a query esta certa
+		String query = "SELECT id_musica, nome, FROM tb_musicas A LEFT JOIN tb_Avaliacoes B on a.Id_musica = b.Id_musica WHERE Id_usuario != ? AND Id_genero = ?";
+		ConnectionFactory factory = new ConnectionFactory();
+		try (Connection c = factory.obterConexao()){
+			PreparedStatement ps = c.prepareStatement(query);
+			
+			ps.setInt(1, id_usuario);
+			ps.setInt(2, id_genero);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int Id = rs.getInt("id_musica");
+				String nome = rs.getString("nome");
+				musiclass musica = new musiclass(Id, nome);
+				musicasNaoAvaliadas.add(musica);
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return musicasNaoAvaliadas;
+
+	}
+	/*Banco:
+	 * Tabela tb_usuarios(Id, nome, senha)
+	 * Tabel tb_musicas(Id, nome, Id_genero)
+	 * tb_avaliacoes(Id_usuario, Id_musica, Id_genero, nota)
+	 * tb_genero(Id_genero, nome)
+	 */
 
 }

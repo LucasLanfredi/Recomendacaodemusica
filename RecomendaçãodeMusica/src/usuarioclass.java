@@ -8,7 +8,7 @@ public class usuarioclass {
 	String senha;
 	ArrayList<generoMusical> generosPreferidos;
 	
-	//primerio Login
+	//Cadastro
 	public usuarioclass(String nomeUsuario, String senha, ArrayList<generoMusical> generosPreferidos){
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
@@ -19,7 +19,7 @@ public class usuarioclass {
 	public usuarioclass(String nomeUsuario, String senha){
 		this.nomeUsuario = nomeUsuario;
 		this.senha = senha;
-		//iniciar array list
+		//pegar generos do banco e id
 	}
 	
 	public String getNome(){
@@ -29,14 +29,8 @@ public class usuarioclass {
 	public ArrayList<musiclass> recomendar(){
 		ArrayList<musiclass> recomendacoes = new ArrayList<>();
 		for(int i = 0; i<= generosPreferidos.size(); i++) {
-			recomendacoes.addAll(generosPreferidos.get(i).getMusicas());
+			recomendacoes.addAll(ConnectionFactory.pegarNaoAvaliadas(Id, generosPreferidos.get(i).getId()));
 		}
-		recomendacoes.addAll(ConnectionFactory.pegarNaoAvaliadas(Id));
-		//filtrar nao favoritas
-		Set<musiclass> listaDeMusicas = new LinkedHashSet<>();
-		listaDeMusicas.addAll(listaDeMusicas);
-		recomendacoes.clear();
-		recomendacoes.addAll(listaDeMusicas);
 		
 		return recomendacoes;
 	}
