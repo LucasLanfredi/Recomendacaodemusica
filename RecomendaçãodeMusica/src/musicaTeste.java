@@ -6,7 +6,7 @@ public class musicaTeste {
 
 		String dbSenha = ConnectionFactory.pegarSenha(nomeUsuario); //recebe do banco
 
-		if(senha.equals(dbSenha) == true) {
+		if(senha.equals(dbSenha)) {
 			usuarioclass usuario = new usuarioclass(nomeUsuario, senha);
 			//proxima tela;
 		}else {
